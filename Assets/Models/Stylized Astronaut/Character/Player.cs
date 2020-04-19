@@ -5,7 +5,7 @@ public class Player : MonoBehaviour {
 
 		private Animator anim;
 		private CharacterController controller;
-	private MobileControl mContr;
+		private MobileControl mContr;
 
 		public float speed = 600.0f;
 		public float turnSpeed = 400.0f;
