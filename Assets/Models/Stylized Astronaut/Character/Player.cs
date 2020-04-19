@@ -19,7 +19,7 @@ public class Player : MonoBehaviour {
 		void Start () {
 			controller = GetComponent <CharacterController>();
 			anim = gameObject.GetComponentInChildren<Animator>();
-		mContr = GameObject.FindGameObjectWithTag ("Joystick").GetComponent<MobileControl> ();
+			mContr = GameObject.FindGameObjectWithTag ("Joystick").GetComponent<MobileControl> ();
 		}
 
 	IEnumerator perenos()
@@ -93,12 +93,12 @@ public class Player : MonoBehaviour {
 
 	private void GamingGravity()
 	{
-		if (!controller.isGrounded) {
+		// if (!controller.isGrounded) {
 
-			gravity -= 20f * Time.deltaTime;
-		} else {
-			gravity = -1f;
-		}
+		// 	gravity -= 20f * Time.deltaTime;
+		// } else {
+		// 	gravity = -1f;
+		// }
 		if (Input.GetKeyDown(KeyCode.Space) && controller.isGrounded) { //keyboard
 			gravity = jumpPower;
 			anim.SetTrigger ("Jump");
