@@ -1,76 +1,206 @@
 fileFormatVersion: 2
 guid: 02dd6406ed1ebc248b2fafd0485e0de9
-timeCreated: 1521227275
-licenseType: Store
 ModelImporter:
-  serializedVersion: 22
-  fileIDToRecycleName:
-    100000: Arm_1_Left
-    100002: Arm_1_Right
-    100004: Arm_2_Left
-    100006: Arm_2_Left_end
-    100008: Arm_2_Right
-    100010: Arm_2_Right_end
-    100012: Armature
-    100014: //RootNode
-    100016: Body_Upper
-    100018: Foot_1_Left
-    100020: Foot_1_Right
-    100022: Foot_2_Left
-    100024: Foot_2_Left_end
-    100026: Foot_2_Right
-    100028: Foot_2_Right_end
-    100030: Head
-    100032: Head_end
-    100034: IK_Arm_Left
-    100036: IK_Arm_Left_end
-    100038: IK_Arm_Right
-    100040: IK_Arm_Right_end
-    100042: IK_Foot_Left
-    100044: IK_Foot_Left_end
-    100046: IK_Foot_Right
-    100048: IK_Foot_Right_end
-    100050: Player
-    100052: Root
-    400000: Arm_1_Left
-    400002: Arm_1_Right
-    400004: Arm_2_Left
-    400006: Arm_2_Left_end
-    400008: Arm_2_Right
-    400010: Arm_2_Right_end
-    400012: Armature
-    400014: //RootNode
-    400016: Body_Upper
-    400018: Foot_1_Left
-    400020: Foot_1_Right
-    400022: Foot_2_Left
-    400024: Foot_2_Left_end
-    400026: Foot_2_Right
-    400028: Foot_2_Right_end
-    400030: Head
-    400032: Head_end
-    400034: IK_Arm_Left
-    400036: IK_Arm_Left_end
-    400038: IK_Arm_Right
-    400040: IK_Arm_Right_end
-    400042: IK_Foot_Left
-    400044: IK_Foot_Left_end
-    400046: IK_Foot_Right
-    400048: IK_Foot_Right_end
-    400050: Player
-    400052: Root
-    4300000: Player
-    7400000: Animation
-    7400002: Idle
-    7400004: Walk
-    7400006: Run
-    7400008: Jump_start
-    7400010: Flip
-    7400012: Jump_loop
-    7400014: Float
-    7400016: Jump_end
-    9500000: //RootNode
-    13700000: Player
+  serializedVersion: 25
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: Arm_1_Left
+  - first:
+      1: 100002
+    second: Arm_1_Right
+  - first:
+      1: 100004
+    second: Arm_2_Left
+  - first:
+      1: 100006
+    second: Arm_2_Left_end
+  - first:
+      1: 100008
+    second: Arm_2_Right
+  - first:
+      1: 100010
+    second: Arm_2_Right_end
+  - first:
+      1: 100012
+    second: Armature
+  - first:
+      1: 100014
+    second: //RootNode
+  - first:
+      1: 100016
+    second: Body_Upper
+  - first:
+      1: 100018
+    second: Foot_1_Left
+  - first:
+      1: 100020
+    second: Foot_1_Right
+  - first:
+      1: 100022
+    second: Foot_2_Left
+  - first:
+      1: 100024
+    second: Foot_2_Left_end
+  - first:
+      1: 100026
+    second: Foot_2_Right
+  - first:
+      1: 100028
+    second: Foot_2_Right_end
+  - first:
+      1: 100030
+    second: Head
+  - first:
+      1: 100032
+    second: Head_end
+  - first:
+      1: 100034
+    second: IK_Arm_Left
+  - first:
+      1: 100036
+    second: IK_Arm_Left_end
+  - first:
+      1: 100038
+    second: IK_Arm_Right
+  - first:
+      1: 100040
+    second: IK_Arm_Right_end
+  - first:
+      1: 100042
+    second: IK_Foot_Left
+  - first:
+      1: 100044
+    second: IK_Foot_Left_end
+  - first:
+      1: 100046
+    second: IK_Foot_Right
+  - first:
+      1: 100048
+    second: IK_Foot_Right_end
+  - first:
+      1: 100050
+    second: Player
+  - first:
+      1: 100052
+    second: Root
+  - first:
+      4: 400000
+    second: Arm_1_Left
+  - first:
+      4: 400002
+    second: Arm_1_Right
+  - first:
+      4: 400004
+    second: Arm_2_Left
+  - first:
+      4: 400006
+    second: Arm_2_Left_end
+  - first:
+      4: 400008
+    second: Arm_2_Right
+  - first:
+      4: 400010
+    second: Arm_2_Right_end
+  - first:
+      4: 400012
+    second: Armature
+  - first:
+      4: 400014
+    second: //RootNode
+  - first:
+      4: 400016
+    second: Body_Upper
+  - first:
+      4: 400018
+    second: Foot_1_Left
+  - first:
+      4: 400020
+    second: Foot_1_Right
+  - first:
+      4: 400022
+    second: Foot_2_Left
+  - first:
+      4: 400024
+    second: Foot_2_Left_end
+  - first:
+      4: 400026
+    second: Foot_2_Right
+  - first:
+      4: 400028
+    second: Foot_2_Right_end
+  - first:
+      4: 400030
+    second: Head
+  - first:
+      4: 400032
+    second: Head_end
+  - first:
+      4: 400034
+    second: IK_Arm_Left
+  - first:
+      4: 400036
+    second: IK_Arm_Left_end
+  - first:
+      4: 400038
+    second: IK_Arm_Right
+  - first:
+      4: 400040
+    second: IK_Arm_Right_end
+  - first:
+      4: 400042
+    second: IK_Foot_Left
+  - first:
+      4: 400044
+    second: IK_Foot_Left_end
+  - first:
+      4: 400046
+    second: IK_Foot_Right
+  - first:
+      4: 400048
+    second: IK_Foot_Right_end
+  - first:
+      4: 400050
+    second: Player
+  - first:
+      4: 400052
+    second: Root
+  - first:
+      43: 4300000
+    second: Player
+  - first:
+      74: 7400000
+    second: Animation
+  - first:
+      74: 7400002
+    second: Idle
+  - first:
+      74: 7400004
+    second: Walk
+  - first:
+      74: 7400006
+    second: Run
+  - first:
+      74: 7400008
+    second: Jump_start
+  - first:
+      74: 7400010
+    second: Flip
+  - first:
+      74: 7400012
+    second: Jump_loop
+  - first:
+      74: 7400014
+    second: Float
+  - first:
+      74: 7400016
+    second: Jump_end
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: Player
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -97,7 +227,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
-    motionNodeName: 
+    motionNodeName: Armature/Root
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
@@ -106,9 +236,29 @@ ModelImporter:
       on avatar to improve retargeting quality.\n\t'Root' has translation animation
       that will be discarded.\n\t'Root' is inbetween humanoid transforms and has rotation
       animation that will be discarded.\n"
-    animationRetargetingWarnings: 
-    animationDoRetargetingWarnings: 0
+    animationRetargetingWarnings: "\nRetargeting quality report for clip 'Armature|CharacterAnimation':\n\tLeftLowerLeg
+      average position error 157.1 mm and maximum position error 792.5 mm at time
+      13: 6 (48.2%) Frame 318\n\tLeftFoot average position error 169.5 mm and maximum
+      position error 769.7 mm at time 13: 6 (48.2%) Frame 318\n\tRightLowerLeg average
+      position error 152.9 mm and maximum position error 800.8 mm at time 13: 5 (48.0%)
+      Frame 317\n\tRightFoot average position error 157.8 mm and maximum position
+      error 738.6 mm at time 13: 7 (48.3%) Frame 319\n\tLeftUpperArm average position
+      error 145.8 mm and maximum position error 413.2 mm at time 12: 8 (44.8%) Frame
+      296\n\tLeftLowerArm average position error 145.0 mm and maximum position error
+      437.0 mm at time 13: 4 (47.9%) Frame 316\n\tLeftHand average position error
+      150.3 mm and maximum position error 835.8 mm at time 13: 4 (47.9%) Frame 316\n\tRightUpperArm
+      average position error 144.6 mm and maximum position error 413.1 mm at time
+      12: 8 (44.8%) Frame 296\n\tRightLowerArm average position error 144.7 mm and
+      maximum position error 417.5 mm at time 13: 4 (47.9%) Frame 316\n\tRightHand
+      average position error 148.9 mm and maximum position error 752.4 mm at time
+      13: 4 (47.9%) Frame 316\n\tHead average position error 144.8 mm and maximum
+      position error 413.2 mm at time 12: 8 (44.8%) Frame 296\n\tLeftFoot average
+      orientation error 16.3 deg and maximum orientation error 84.7 deg at time 12:16
+      (46.1%) Frame 304\n\tRightFoot average orientation error 13.6 deg and maximum
+      orientation error 30.8 deg at time 9:23 (36.2%) Frame 239\n"
+    animationDoRetargetingWarnings: 1
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -120,6 +270,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Animation
       takeName: Armature|CharacterAnimation
+      internalID: 7400000
       firstFrame: 0
       lastFrame: 660
       wrapMode: 0
@@ -202,6 +353,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Idle
       takeName: Armature|CharacterAnimation
+      internalID: 7400002
       firstFrame: 30
       lastFrame: 110
       wrapMode: 0
@@ -284,6 +436,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Walk
       takeName: Armature|CharacterAnimation
+      internalID: 7400004
       firstFrame: 140
       lastFrame: 180
       wrapMode: 0
@@ -366,6 +519,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Run
       takeName: Armature|CharacterAnimation
+      internalID: 7400006
       firstFrame: 210
       lastFrame: 250
       wrapMode: 0
@@ -448,6 +602,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Jump_start
       takeName: Armature|CharacterAnimation
+      internalID: 7400008
       firstFrame: 280
       lastFrame: 296
       wrapMode: 0
@@ -530,6 +685,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Flip
       takeName: Armature|CharacterAnimation
+      internalID: 7400010
       firstFrame: 309
       lastFrame: 329
       wrapMode: 0
@@ -612,6 +768,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Jump_loop
       takeName: Armature|CharacterAnimation
+      internalID: 7400012
       firstFrame: 360
       lastFrame: 400
       wrapMode: 0
@@ -694,6 +851,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Float
       takeName: Armature|CharacterAnimation
+      internalID: 7400014
       firstFrame: 440
       lastFrame: 580
       wrapMode: 0
@@ -776,6 +934,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Jump_end
       takeName: Armature|CharacterAnimation
+      internalID: 7400016
       firstFrame: 640
       lastFrame: 660
       wrapMode: 0
@@ -861,6 +1020,7 @@ ModelImporter:
     globalScale: 0.01
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
     importVisibility: 0
     importBlendShapes: 1
     importCameras: 0
@@ -868,10 +1028,13 @@ ModelImporter:
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
     indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
@@ -883,10 +1046,14 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human:
     - boneName: Armature
       humanName: Hips
@@ -1151,8 +1318,8 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 0.01
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1

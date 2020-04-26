@@ -97,7 +97,7 @@ public class Player : MonoBehaviour {
 
 		// 	gravity -= 20f * Time.deltaTime;
 		// } else {
-		// 	gravity = -1f;
+		 	gravity = 0;
 		// }
 		if (Input.GetKeyDown(KeyCode.Space) && controller.isGrounded) { //keyboard
 			gravity = jumpPower;
