@@ -55,20 +55,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Models\Stylized Astronaut\Character\Player.cs" />
      <Compile Include="Assets\Models\Stylized Astronaut\Character\ThirdPersonCamera.cs" />
      <Compile Include="Assets\Scripts\Game\UI\MobileControl.cs" />
      <Compile Include="Assets\Scripts\Game\Units\ActionButton.cs" />
      <Compile Include="Assets\Scripts\Game\Units\ChangeCamera.cs" />
      <Compile Include="Assets\Scripts\Game\Units\CharacterMechanics.cs" />
      <Compile Include="Assets\Scripts\Game\Units\MoveHand.cs" />
+     <Compile Include="Assets\Scripts\Game\Units\Player.cs" />
+     <Compile Include="Assets\Scripts\Game\Units\PlayerMovement.cs" />
      <None Include="Assets\Models\Free Low Poly Desert Pack\Materials\Shaders\Vertex_Color_Unlit.shader" />
      <None Include="Assets\Models\Free Low Poly Desert Pack\Materials\Shaders\Vertex_Color_Basic.shader" />
  <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>/Users/vladimir/Documents/Repositorys/Colobot/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ <HintPath>/Users/vladimir/Programming/Repositorys/Colobot/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro">
- <HintPath>/Users/vladimir/Documents/Repositorys/Colobot/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+ <HintPath>/Users/vladimir/Programming/Repositorys/Colobot/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>/Applications/2019.1.10f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
