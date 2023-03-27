@@ -17,14 +17,14 @@ public class CharacterMechanics : MonoBehaviour {
 	//Component links
 	private CharacterController ch_Controller;
 	private Animator ch_animator;
-	private MobileControl mContr;
+	// private MobileControl mContr;
 	//private ActionButton AB;
 
 	// Use this for initialization
 	void Start () {
 		
 		ch_Controller = GetComponent<CharacterController> ();
-		mContr = GameObject.FindGameObjectWithTag ("Joystick").GetComponent<MobileControl> ();
+		// mContr = GameObject.FindGameObjectWithTag ("Joystick").GetComponent<MobileControl> ();
 		ch_animator = GetComponent<Animator> ();
 		//AB = GameObject.FindGameObjectWithTag ("AB").GetComponent<ActionButton> ();
 
@@ -45,8 +45,8 @@ public class CharacterMechanics : MonoBehaviour {
 			ch_animator.SetBool ("Falling", false);
 
 			moveVector = Vector3.zero;
-			moveVector.x = mContr.Horizontal () * speedMove;
-			moveVector.z = mContr.Vertical () * speedMove;
+			// moveVector.x = mContr.Horizontal () * speedMove;
+			// moveVector.z = mContr.Vertical () * speedMove;
 
 			//анимация передвижения персонажа
 			if (moveVector.x != 0 || moveVector.z != 0)
