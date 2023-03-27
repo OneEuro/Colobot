@@ -73,3 +73,6 @@ crashlytics-build.properties
 
 #Apple temp
 .DS_Store
+
+# Unity C# meta files
+*.cs.meta
