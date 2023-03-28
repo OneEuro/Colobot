@@ -688,6 +688,7 @@ PlayerSettings:
   scriptingDefineSymbols:
     : MOBILE_INPUT
     Android: CROSS_PLATFORM_INPUT;MOBILE_INPUT
+    Server: 
     Standalone: CROSS_PLATFORM_INPUT
     Windows Store Apps: MOBILE_INPUT
     iPhone: CROSS_PLATFORM_INPUT;MOBILE_INPUT

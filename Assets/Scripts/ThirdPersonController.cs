@@ -5,12 +5,13 @@ using UnityEngine;
 public class ThirdPersonController : MonoBehaviour
 {
     public float speed = 5f;
+    public float jumpForce = 10f;
     public float rotationSpeed = 50f;
 
     private Animator animator;
     private Rigidbody rigidbody;
 
-    private bool isGrounded = true;
+    public bool isGrounded = true;
 
     void Start()
     {
@@ -29,6 +30,8 @@ public class ThirdPersonController : MonoBehaviour
         Vector3 movement = new Vector3(moveX, 0f, moveZ);
         movement = movement.normalized * speed * Time.deltaTime;
         transform.Translate(movement, Space.Self);
+        // rigidbody.MovePosition(transform.position + transform.TransformDirection(movement));
+
 
         // Rotate the character
         transform.Rotate(Vector3.up * rotateY * rotationSpeed * Time.deltaTime);
@@ -50,8 +53,32 @@ public class ThirdPersonController : MonoBehaviour
         // Check for jump input
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            rigidbody.AddForce(Vector3.up * 5f, ForceMode.Impulse);
+            rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            isGrounded = false;
             animator.SetTrigger("Jump");
         }
+
     }
+
+     void OnCollisionEnter(Collision collision)
+            {
+                Debug.Log("Collision enter");
+                // Check if player has landed on ground
+                if (collision.gameObject.CompareTag("Ground"))
+                {
+                    isGrounded = true;
+                    animator.SetTrigger("land");
+                }
+            }
+
+    void OnCollisionExit(Collision collision)
+            {
+                Debug.Log("Collision exit");
+                // Check if player has left the ground
+                if (collision.gameObject.CompareTag("Ground"))
+                {
+                    isGrounded = false;
+                }
+            }
+
 }
