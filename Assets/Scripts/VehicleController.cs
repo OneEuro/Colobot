@@ -19,7 +19,7 @@ public class VehicleController : MonoBehaviour
         // Check if in vehicle control mode
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            GetComponent<ThirdPersonController>().enabled = false;
+            GetComponent<CharacterController>().enabled = false;
             enabled = true;
         }
 
@@ -39,7 +39,7 @@ public class VehicleController : MonoBehaviour
         // Check if in third person control mode
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            GetComponent<ThirdPersonController>().enabled = true;
+            GetComponent<CharacterController>().enabled = true;
             enabled = false;
         }
     }
