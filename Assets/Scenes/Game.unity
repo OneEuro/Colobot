@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 505441552}
   m_Layer: 0
   m_Name: Box
-  m_TagString: Untagged
+  m_TagString: Box
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -345,6 +345,8 @@ GameObject:
   - component: {fileID: 1537905850}
   - component: {fileID: 1537905849}
   - component: {fileID: 1537905852}
+  - component: {fileID: 1537905853}
+  - component: {fileID: 1537905854}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -441,6 +443,42 @@ MonoBehaviour:
   lookAt: {fileID: 1585382699}
   camTransform: {fileID: 1537905851}
   distance: 5
+--- !u!114 &1537905853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1537905847}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e13ea34ca9c0f42a892e30dc0294d147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1585382699}
+  distance: 10
+  angle: 30
+  turnSpeed: 5
+  minAngle: 0
+  maxAngle: 80
+--- !u!114 &1537905854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1537905847}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07428bb26a98b4ae7a16beae81b1cf45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1585382699}
+  distance: 5
+  height: 2
+  lookAtHeight: 1.5
+  smoothSpeed: 0.5
+  rotationSpeed: 90
 --- !u!1001 &1585382698
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -453,6 +491,11 @@ PrefabInstance:
       propertyPath: box
       value: 
       objectReference: {fileID: 505441547}
+    - target: {fileID: -7135067353480798989, guid: 6b0498a2b2f3d40619bb72d6c7287800,
+        type: 3}
+      propertyPath: moveSpeed
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 1147752367711628, guid: 6b0498a2b2f3d40619bb72d6c7287800, type: 3}
       propertyPath: m_Name
       value: Astronaut

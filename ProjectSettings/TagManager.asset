@@ -7,6 +7,7 @@ TagManager:
   - Joystick
   - AB
   - Ground
+  - Box
   layers:
   - Default
   - TransparentFX

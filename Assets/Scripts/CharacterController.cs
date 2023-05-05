@@ -7,6 +7,7 @@ public class CharacterController : MonoBehaviour
     //Character movement variables
     public float moveSpeed = 5f;
     public float jumpForce = 5f;
+    public float turnSpeed = 200f;
     public float boxLiftForce = 5f;
     public bool isGrounded = false;
     public bool isFlying = false;
@@ -33,6 +34,9 @@ public class CharacterController : MonoBehaviour
     
     //Vehicle variables
     public GameObject vehicle;
+
+    private Vector3 moveDirection = Vector3.zero; // Направление движения персонажа
+
     
     void Start()
     {
@@ -47,31 +51,36 @@ public class CharacterController : MonoBehaviour
         float hAxis = Input.GetAxis("Horizontal");
         float vAxis = Input.GetAxis("Vertical");
         Vector3 movement = new Vector3(hAxis, 0f, vAxis) * moveSpeed * Time.deltaTime;
-        transform.Translate(movement, Space.Self);
-        anim.SetFloat("movementSpeed",vAxis);
+        movement.Normalize();
+        anim.SetFloat("movementSpeed", Mathf.Abs(hAxis) + Mathf.Abs(vAxis) );
         
         //Character rotation
-        if(hAxis != 0f || vAxis != 0f)
+        if (movement.magnitude >= 0.1f)
         {
-            transform.rotation = Quaternion.LookRotation(movement, Vector3.up);
+            float targetAngle = Mathf.Atan2(movement.x, movement.z) * Mathf.Rad2Deg + Camera.main.transform.eulerAngles.y;
+            transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
+            rig.MovePosition(transform.position + transform.forward * moveSpeed * Time.deltaTime);
         }
         
         //Character jumping
-        if(Input.GetKeyDown(KeyCode.Space) && isGrounded /*&& !isFlying*/)
+        if(Input.GetKeyDown(KeyCode.Space) /*&& isGrounded*/ && !isFlying)
         {
-            // anim.Play(jumpStart.name);
-            // Debug.Log(jumpStart.name);
-            // anim.Play(jumpLoop.name, 0, jumpStart.length / jumpLoop.length);
-            // anim.Play(jumpLoop.name);
             anim.SetBool("isGrounded", false);
-            isGrounded = false;
+            // isGrounded = false;
             rig.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
         
         //Character landing
-        if(isGrounded)
+        // if(isGrounded)
+        // {
+        //     // anim.Play(jumpEnd.name);
+        // }
+
+        //Character falling
+        if(transform.position.y < -2.0f)
         {
-            // anim.Play(jumpEnd.name);
+            anim.Play(jumpLoop.name);
+            Debug.Log("Falling");
         }
         
         //Character box lifting
@@ -128,9 +137,15 @@ public class CharacterController : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Ground"))
         {
-                isGrounded = true;
+                // isGrounded = true;
                 anim.SetBool("isGrounded", true);
                 Debug.Log("tag = Ground");
+        }
+        if(collision.gameObject.CompareTag("Box"))
+        {
+                // isGrounded = true;
+                anim.SetBool("isGrounded", true);
+                Debug.Log("tag = Box");
         }
     }
 
@@ -141,4 +156,11 @@ public class CharacterController : MonoBehaviour
     //             anim.Play(jumpLoop.name);
     //     }
     // }
+
+    //  void OnDrawGizmosSelected()
+    // {
+    //     Gizmos.color = Color.red;
+    //     Gizmos.DrawWireSphere(transform.position, 0.2f);
+    // }
+
 }
