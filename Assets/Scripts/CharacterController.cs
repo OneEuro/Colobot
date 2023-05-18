@@ -8,7 +8,7 @@ public class CharacterController : MonoBehaviour
     public float moveSpeed = 5f;
     public float jumpForce = 5f;
     public float turnSpeed = 200f;
-    public float boxLiftForce = 5f;
+    // public float boxLiftForce = 5f;
     public bool isGrounded = false;
     public bool isFlying = false;
     public bool isLiftingBox = false;
@@ -28,22 +28,70 @@ public class CharacterController : MonoBehaviour
     //Box lifting variables
     public GameObject box;
     public Transform boxLiftPosition;
+    private bool isHolding; // флаг, указывающий на то, что персонаж держит объект
+    public float raycastDistance = 1.5f; // дистанция для выявления объектов
+    public GameObject itemToPickUp; // объект, который игрок может поднять
+    public Transform holdPoint; // точка, где держится кубический объект
+    public float pickUpDistance = 2f; // дистанция, на которой игрок может поднять предмет
+    private GameObject itemToDrop; // объект, который игрок может опустить
+    public float dropDistance = 2f; // дистанция, на которой игрок может опустить предмет
+    public float dropDuration = 1.0f; // продолжительность опускания предмета
+    private bool isDropping = false; // флаг, указывающий, выполняется ли сейчас опускание предмета
+    public GameObject dropPosition;
     
+
+
+
+    private GameObject hitObject;
+
+
     //Jetpack variables
     public GameObject jetpack;
     
     //Vehicle variables
     public GameObject vehicle;
 
-    private Vector3 moveDirection = Vector3.zero; // Направление движения персонажа
 
-    
     void Start()
     {
         anim = GetComponent<Animator>();
         rig = GetComponent<Rigidbody>();
 
     }
+
+    private IEnumerator DropItemCoroutine()
+    {
+        isDropping = true;
+
+        // проигрываем анимацию опускания предмета
+        anim.SetTrigger("pickUp");
+
+        // вычисляем конечную позицию, на которой должен находиться предмет после опускания
+        // Vector3 dropPosition = transform.position - transform.forward * 1.5f;
+
+        // перемещаем объект предмета плавно вниз на конечную позицию
+        float elapsed = 0.0f;
+        Vector3 startPosition = itemToPickUp.transform.position;
+        while (elapsed < dropDuration)
+        {
+            elapsed += Time.deltaTime;
+            itemToPickUp.transform.position = Vector3.Lerp(startPosition, dropPosition.transform.position, elapsed / dropDuration);
+            yield return null;
+        }
+
+        // отключаем коллайдер объекта для опускания, чтобы персонаж мог взаимодействовать с предметом, который он опустил
+        Collider itemCollider = itemToPickUp.GetComponent<Collider>();
+        if (itemCollider != null)
+        
+        {
+            itemCollider.enabled = false;
+        }
+          // удаляем объект для опускания из руки персонажа
+        itemToPickUp.transform.parent = null;
+
+        isDropping = false;
+    }
+    
 
     void Update()
     {
@@ -63,10 +111,10 @@ public class CharacterController : MonoBehaviour
         }
         
         //Character jumping
-        if(Input.GetKeyDown(KeyCode.Space) /*&& isGrounded*/ && !isFlying)
+        if(Input.GetKeyDown(KeyCode.Space) && isGrounded && !isFlying)
         {
             anim.SetBool("isGrounded", false);
-            // isGrounded = false;
+            isGrounded = false;
             rig.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
         
@@ -77,25 +125,42 @@ public class CharacterController : MonoBehaviour
         // }
 
         //Character falling
-        if(transform.position.y < -2.0f)
+        if(transform.position.y < -2.0f || transform.position.y > 2.0f)
         {
-            anim.Play(jumpLoop.name);
+            // anim.Play(jumpLoop.name);
+            anim.SetBool("isGrounded", false);
             Debug.Log("Falling");
         }
-        
-        //Character box lifting
-        if(Input.GetKeyDown(KeyCode.E) && !isFlying)
+
+        if (!isHolding)
         {
-            isLiftingBox = true;
-            box.transform.position = boxLiftPosition.position;
-            box.transform.parent = boxLiftPosition;
-            anim.Play(pickUp.name);
-        }
-        else if(Input.GetKeyUp(KeyCode.E))
+         // проверяем, нажата ли клавиша для поднятия предмета и есть ли объект для поднятия
+        if (Input.GetKeyDown(KeyCode.E) && itemToPickUp != null)
         {
-            isLiftingBox = false;
-            box.transform.parent = null;
+            // проверяем, находится ли объект для поднятия в заданной дистанции от игрока
+            if (Vector3.Distance(transform.position, itemToPickUp.transform.position) <= pickUpDistance)
+            {
+                Debug.Log("PickUp box");
+                  // поднимаем объект
+                // itemToPickUp = hit.collider.gameObject;
+                itemToPickUp.transform.position = holdPoint.position;
+                itemToPickUp.transform.parent = holdPoint;
+                isHolding = true;
+
+                anim.SetTrigger("pickUp");
+            }
         }
+         } else {
+
+        // проверяем, нажата ли клавиша для опускания предмета и есть ли объект для опускания
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                    Debug.Log("Drop box");
+                    StartCoroutine(DropItemCoroutine());
+                    isHolding = false;
+            }
+         }
+
         
         //Character jetpack flying
         if(Input.GetKey(KeyCode.J) && isFlying)
@@ -137,15 +202,15 @@ public class CharacterController : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Ground"))
         {
-                // isGrounded = true;
+                isGrounded = true;
                 anim.SetBool("isGrounded", true);
-                Debug.Log("tag = Ground");
+                // Debug.Log("tag = Ground");
         }
         if(collision.gameObject.CompareTag("Box"))
         {
-                // isGrounded = true;
+                isGrounded = true;
                 anim.SetBool("isGrounded", true);
-                Debug.Log("tag = Box");
+                // Debug.Log("tag = Box");
         }
     }
 
@@ -156,11 +221,24 @@ public class CharacterController : MonoBehaviour
     //             anim.Play(jumpLoop.name);
     //     }
     // }
+   
+    private void OnTriggerEnter(Collider other)
+    {
+        // проверяем, входит ли другой объект в триггер-коллайдер
+        if (other.CompareTag("BoxTrigger"))
+        {
+            Debug.Log("it is BOX");
+            itemToPickUp = other.gameObject; // сохраняем объект для поднятия
+        }
+    }
 
-    //  void OnDrawGizmosSelected()
-    // {
-    //     Gizmos.color = Color.red;
-    //     Gizmos.DrawWireSphere(transform.position, 0.2f);
-    // }
+    private void OnTriggerExit(Collider other)
+    {
+        // проверяем, выходит ли другой объект из триггер-коллайдера
+        if (other.CompareTag("BoxTrigger"))
+        {
+            itemToPickUp = null; // сбрасываем объект для поднятия
+        }
+    }
 
 }

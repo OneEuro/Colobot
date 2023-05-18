@@ -8,6 +8,7 @@ TagManager:
   - AB
   - Ground
   - Box
+  - BoxTrigger
   layers:
   - Default
   - TransparentFX
