@@ -12,6 +12,8 @@ public class CharacterController : MonoBehaviour
     public bool isGrounded = false;
     public bool isFlying = false;
     public bool isLiftingBox = false;
+    public float movementSpeed = 2f; // Скорость перемещения персонажа
+    public float rotationSpeed = 5f; // Скорость поворота персонажа
 
     private Rigidbody rig;
     
@@ -35,14 +37,18 @@ public class CharacterController : MonoBehaviour
     public float pickUpDistance = 2f; // дистанция, на которой игрок может поднять предмет
     private GameObject itemToDrop; // объект, который игрок может опустить
     public float dropDistance = 2f; // дистанция, на которой игрок может опустить предмет
-    public float dropDuration = 1.0f; // продолжительность опускания предмета
+    public float dropDuration = 1f; // продолжительность опускания предмета
     private bool isDropping = false; // флаг, указывающий, выполняется ли сейчас опускание предмета
     public GameObject dropPosition;
-    
+    private bool isPickingUp = false; // Флаг, указывающий, выполняется ли сейчас поднятие предмета
+
 
 
 
     private GameObject hitObject;
+
+    public Vector3 cubeSideDirection;
+    public event System.Action<Vector3> OnVectorChanged;
 
 
     //Jetpack variables
@@ -50,14 +56,15 @@ public class CharacterController : MonoBehaviour
     
     //Vehicle variables
     public GameObject vehicle;
+    private CubeColorChanger cubeColorChanger;
 
 
     void Start()
     {
         anim = GetComponent<Animator>();
         rig = GetComponent<Rigidbody>();
-
     }
+
 
     private IEnumerator DropItemCoroutine()
     {
@@ -84,12 +91,97 @@ public class CharacterController : MonoBehaviour
         if (itemCollider != null)
         
         {
-            itemCollider.enabled = false;
+            // itemCollider.enabled = false;
         }
           // удаляем объект для опускания из руки персонажа
         itemToPickUp.transform.parent = null;
 
         isDropping = false;
+    }
+
+    private IEnumerator MoveAndRotateToItem(Vector3 characterToItemDirection)
+    {
+        isPickingUp = true;
+
+         // Находим ближайшую сторону куба к персонажу
+        cubeSideDirection = FindClosestCubeSide(characterToItemDirection);
+        if (OnVectorChanged != null) {
+            OnVectorChanged.Invoke(cubeSideDirection);
+        }
+        
+        
+        // Вращаем персонаж плавно к стороне куба
+        Quaternion targetRotation = Quaternion.LookRotation(cubeSideDirection);
+        while (Quaternion.Angle(transform.rotation, targetRotation) > 0.1f)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+            yield return null;
+        }
+
+        // Двигаем персонажа к стороне куба
+        // Vector3 targetPosition = itemToPickUp.transform.position - cubeSideDirection.normalized;
+        // while (Vector3.Distance(transform.position, targetPosition) > 0.1f)
+        // {
+        //     transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * movementSpeed);
+        //     yield return null;
+        // }
+
+        // Поднимаем предмет
+        StartCoroutine(PickupItem());
+
+        isPickingUp = false;
+    }
+
+    private Vector3 FindClosestCubeSide(Vector3 direction)
+    {
+        Vector3[] cubeSides = new Vector3[]
+        {
+            Vector3.forward,
+            Vector3.back,
+            Vector3.left,
+            Vector3.right
+            //Vector3.up,
+            //Vector3.down
+        };
+
+        float closestAngle = Mathf.Infinity;
+        Vector3 closestSide = Vector3.zero;
+
+        foreach (Vector3 side in cubeSides)
+        {
+            float angle = Vector3.Angle(direction, side);
+            if (angle < closestAngle)
+            {
+                closestAngle = angle;
+                closestSide = side;
+            }
+        }
+
+        return closestSide;
+    }
+
+   
+
+    private IEnumerator PickupItem()
+    {
+        // itemToPickUp.transform.position = holdPoint.position;
+        // itemToPickUp.transform.parent = holdPoint;
+        
+        anim.SetTrigger("pickUp");
+        float elapsed = 0.0f;
+        Vector3 endPosition = itemToPickUp.transform.position;
+        while (elapsed < dropDuration)
+        {
+            elapsed += Time.deltaTime;
+            itemToPickUp.transform.position = Vector3.Lerp(endPosition, holdPoint.transform.position, elapsed / dropDuration);
+            yield return null;
+        }
+        itemToPickUp.transform.parent = holdPoint;
+        isHolding = true;
+        
+        // Выполняем действия по поднятию предмета
+        Debug.Log("Поднят предмет: " + itemToPickUp.name);
+        
     }
     
 
@@ -136,27 +228,39 @@ public class CharacterController : MonoBehaviour
         {
          // проверяем, нажата ли клавиша для поднятия предмета и есть ли объект для поднятия
         if (Input.GetKeyDown(KeyCode.E) && itemToPickUp != null)
-        {
+        {   
+            cubeColorChanger = itemToPickUp.GetComponent<CubeColorChanger>();
             // проверяем, находится ли объект для поднятия в заданной дистанции от игрока
             if (Vector3.Distance(transform.position, itemToPickUp.transform.position) <= pickUpDistance)
             {
-                Debug.Log("PickUp box");
-                  // поднимаем объект
-                // itemToPickUp = hit.collider.gameObject;
-                itemToPickUp.transform.position = holdPoint.position;
-                itemToPickUp.transform.parent = holdPoint;
-                isHolding = true;
+            // Проверяем угол между персонажем и предметом
+                Vector3 characterToItemDirection = itemToPickUp.transform.position - transform.position;
+                float angle = Vector3.Angle(transform.forward, characterToItemDirection);
+                StartCoroutine(MoveAndRotateToItem(characterToItemDirection));
 
-                anim.SetTrigger("pickUp");
+                // Если угол не равен 90 градусам, двигаем персонажа в нужное положение и вращаем его
+                // if (angle != 90f)
+                // {
+                //     // Quaternion targetRotation = Quaternion.LookRotation(characterToItemDirection);
+                //     StartCoroutine(MoveAndRotateToItem(characterToItemDirection));
+                // }
+                // else
+                // {
+                //     // Иначе просто поднимаем предмет
+                //     PickupItem();
+                // }
             }
         }
+        
+            
          } else {
 
         // проверяем, нажата ли клавиша для опускания предмета и есть ли объект для опускания
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E) && (anim.GetFloat("movementSpeed") < 0.01f))
             {
                     Debug.Log("Drop box");
                     StartCoroutine(DropItemCoroutine());
+                    cubeColorChanger.ChangeBackColor();
                     isHolding = false;
             }
          }
@@ -172,7 +276,7 @@ public class CharacterController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.V) && !isFlying)
         {
             vehicle.SetActive(true);
-            gameObject.SetActive(false);
+            // gameObject.SetActive(false);
         }
         
         //Character animation
@@ -228,7 +332,7 @@ public class CharacterController : MonoBehaviour
         if (other.CompareTag("BoxTrigger"))
         {
             Debug.Log("it is BOX");
-            itemToPickUp = other.gameObject; // сохраняем объект для поднятия
+            itemToPickUp = other.transform.parent.gameObject; // сохраняем объект для поднятия
         }
     }
 
