@@ -73,3 +73,10 @@ crashlytics-build.properties
 
 #Apple temp
 .DS_Store
+Assets/Scripts/CharacterMovement.cs.meta
+Assets/Scripts/ObjectPickup.cs.meta
+Assets/Scripts/PlayerController.cs.meta
+Assets/Scripts/ThirdPersonController.cs.meta
+Assets/Scripts/VehicleController.cs.meta
+Assets/Standard Assets/Stylized Astronaut/Character/Player.cs.meta
+Assets/Standard Assets/Stylized Astronaut/Character/ThirdPersonCamera.cs.meta
